@@ -1,17 +1,36 @@
-#include <iostream>
-#include <map>
-#include <vector>
+// COMSC-210 | Lab 27 | Annie Morales
+// IDE used: Visual Studio Code
+
+// Milestone 1: Done
+// Bring the demo code for std::map that's posted in module 27 
+// into a new Github repository project.
+
+#include <iostream> // for std::cout, std::endl
+#include <map> // for std::map
+#include <vector> // for std::vector
 using namespace std;
+
+// Milestone 2:
+// Currently, the std::map in that code contains a key (here, a string representing the villager's name)
+// and a value (here, a string vector representing their three favorite colors).
+
+// Change the data we're storing to friendship level (0-10), the villager's species (string), and the villager's catchphrase (string).
+
+// Change the data structure held in the std::map's value from a vector to a std::tuple.
+
+// Convert the rest of the code to support the new std::tuple.
+
+// Demo this code's success with short driver code.
 
 int main() {
     // declarations
-    map<string, vector<string>> villagerColors;
+    map<string, vector<string>> villagerData; // map of villager data storing friendship level, species, and catchphrase
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
-    villagerColors["Audie"] = {"Orange", "Yellow", "Red"};
-    villagerColors["Raymond"] = {"Black", "Gray", "White"};
-    villagerColors.insert({"Marshal", {"Blue", "White", "Black"}});
+    villagerData["Audie"] = {"5", "Animal", "Sick!"};
+    villagerData["Raymond"] = {"8", "Cat", "Cool beans"};
+    villagerData.insert({"Marshal", {"Blue", "White", "Black"}});
 
     // access the map using a range-based for loop
     cout << "Villagers and their favorite colors (range-based for loop):" << endl;
