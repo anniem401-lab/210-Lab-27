@@ -26,13 +26,21 @@ using namespace std;
 // 2. Decrease Friendship
 // 3. Search for Villager
 // 4. Exit
+// The increase/decrease friendship can just add a point each time, 
+// making sure that the level is never negative.
+// After each operation is complete, output the std::map's contents of 
+// villager data in this format (you can improve on the format if you wish).
 
 // Function Prototype
 int main_menu ();
+void display_villagers();
+void increase_friendship();
 
-int main() {
+int main(){
     // declarations
     map<string, tuple<int, string, string>> villagerData; // map of villager data storing friendship level, species, and catchphrase
+
+    /*
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
@@ -72,22 +80,23 @@ int main() {
     auto it = villagerData.find(searchKey);
     if (it != villagerData.end()) {  // the iterator points to beyond the end of the map
                                        // if searchKey is not found
-        cout << "\nFound " << searchKey << "'s villager data: " << endl;
+        cout << "\nFound " << searchKey << " in villager data: " << endl;
 
         for (auto data : villagerData) {
         cout 
             << get<0>(data.second) << ", "
             << get<1>(data.second) << ", "
             << get<2>(data.second) << endl;
-    }
-
+        }
     } else
         cout << endl << searchKey << " not found." << endl;
 
-    // report size, clear, report size again to confirm map operations
+     // report size, clear, report size again to confirm map operations
     cout << "\nSize before clear: " << villagerData.size() << endl;
     villagerData.clear();
     cout << "Size after clear: " << villagerData.size() << endl << endl;
+
+    */
 
     while (true){
         int choice = main_menu();
@@ -99,7 +108,7 @@ int main() {
                     break;
             case 3: cout << "You chose to search for Villager." << endl;
                     break;
-            case 4: cout << "You chose to exit, you have left the program. Goodbye!" << endl;
+            case 4: cout << "You chose to exit, you have left the program. Goodbye!" << endl << endl;
                     return 0;
         }
     }
@@ -107,6 +116,9 @@ int main() {
     return 0;
 }
 
+// main_menu outputs a menu allowing the user to choose from four options.
+// arguments: none.
+// returns: user choice from number input.
 int main_menu (){
     cout << endl << "** Main Menu **" << endl;
     cout << "1. Increase Friendship" << endl;
@@ -122,4 +134,20 @@ int main_menu (){
         cin >> choice;
     }
     return choice;
+}
+
+// increase_friendship allows the user to increase friendship by one point.
+// arguments: map of villager data
+// returns: user choice.
+void increase_friendship(map<string, tuple<int, string, string>> villagerData){
+    int choice;
+    cout << "Select a villager:\n";
+    // Display of villagers
+    cout << "Choice -> ";
+    cin >> choice;
+    while (choice < 1 || choice > villagerData.size()){
+        cout << "Invalid choice. Please enter the number of a villager from the display: ";
+        cin >> choice;
+    }
+
 }
