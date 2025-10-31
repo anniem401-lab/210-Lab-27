@@ -12,13 +12,23 @@
 #include <tuple> // for std::tuple
 using namespace std;
 
-// Milestone 2:
+// Milestone 2: Done
 // Currently, the std::map in that code contains a key (here, a string representing the villager's name)
 // and a value (here, a string vector representing their three favorite colors).
 // Change the data we're storing to friendship level (0-10), the villager's species (string), and the villager's catchphrase (string).
 // Change the data structure held in the std::map's value from a vector to a std::tuple.
 // Convert the rest of the code to support the new std::tuple.
 // Demo this code's success with short driver code.
+
+// Milestone 3:
+// Make a program menu-driven that will support this menu:
+// 1. Increase Friendship
+// 2. Decrease Friendship
+// 3. Search for Villager
+// 4. Exit
+
+// Function Prototype
+void menu ();
 
 int main() {
     // declarations
@@ -79,5 +89,22 @@ int main() {
     villagerData.clear();
     cout << "Size after clear: " << villagerData.size() << endl << endl;
 
+    void menu();
+
     return 0;
+}
+
+void menu (map<string, tuple<int, string, string>> Menu){
+    int choice;
+    while(true){
+        cout << "1. Increase Friendship";
+        cout << "2. Decrease Friendship";
+        cout << "3. Search for Villager";
+        cout << "4. Exit";
+        cout << "Enter choice -> ";
+        cin >> choice;
+    }
+    if (choice = 1){
+        
+    }
 }
