@@ -17,9 +17,7 @@ using namespace std;
 // and a value (here, a string vector representing their three favorite colors).
 // Change the data we're storing to friendship level (0-10), the villager's species (string), and the villager's catchphrase (string).
 // Change the data structure held in the std::map's value from a vector to a std::tuple.
-
 // Convert the rest of the code to support the new std::tuple.
-
 // Demo this code's success with short driver code.
 
 int main() {
@@ -30,30 +28,30 @@ int main() {
     // note how the right-hand side of the assignment are the vector elements
 
     // assigning values to tuple using make_tuple()
-    villagerData["Audie"] = make_tuple( 5, "Wolf,", "foxtrot");
-    villagerData["Raymond"] = make_tuple( 8, "Cat,", "crisp");
-    villagerData.insert({"Marshal", {3, "Squirrel,", "sulky"}});
+    villagerData["Audie"] = make_tuple( 5, "Wolf", "foxtrot");
+    villagerData["Raymond"] = make_tuple( 8, "Cat", "crisp");
+    villagerData.insert({"Marshal", {3, "Squirrel", "sulky"}});
 
     // access the map using a range-based for loop
     cout << endl << "Villager Data (range-based for loop):" << endl;
     cout << "-------------------------------------" << endl;
     for (auto pair : villagerData) {
         cout << pair.first << ": "
-            get<1>(pair.first) << ", " <<
-
+            << get<0>(pair.second) << ", "
+            << get<1>(pair.second) << ", "
+            << get<2>(pair.second) << endl;
     }
 
     // access the map using iterators
     cout << "\nVillagers Data (iterators):" << endl;
     cout << "-------------------------------------" << endl;
-    for (map<string, vector<string>>::iterator it = villagerData.begin(); 
+    for (map<string, tuple<int, string, string>>::iterator it = villagerData.begin(); 
                                                it != villagerData.end(); ++it) {
-        cout << it->first << ": ";
-        for (auto color : it->second) {
-            cout << color << " ";
-        }
-        cout << endl;
-    }//
+        cout << it->first << ": "
+            << get<0>(it->second) << ", "
+            << get<1>(it->second) << ", "
+            << get<2>(it->second) << endl;
+    }
 
     // delete an element
     villagerData.erase("Raymond");
@@ -64,10 +62,8 @@ int main() {
     auto it = villagerData.find(searchKey);
     if (it != villagerData.end()) {  // the iterator points to beyond the end of the map
                                        // if searchKey is not found
-        cout << "\nFound " << searchKey << "'s villager data: ";
-        for (auto color : it->second)  // range loop to traverse the value/vector
-            cout << color << " ";
-        cout << endl;
+        cout << "\nFound " << searchKey << "'s villager data: " << endl;
+
     } else
         cout << endl << searchKey << " not found." << endl;
 
