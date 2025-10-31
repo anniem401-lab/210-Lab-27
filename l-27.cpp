@@ -35,13 +35,13 @@ using namespace std;
 int main_menu (); // Main menu function that loops in main.
 void display_villagers(); // Displays list of villagers.
 int select_villager(); // Allows user to select a villager.
-void increase_friendship();
+void increase_friendship(map<string, tuple<int, string, string>> villagerData); // Increases friendship by 1, Choice 1.
+void decrease_friendship(); // Decreases friendship by 1, Choice 2.
+void search_villager(); // Searches for villager, Choice 3.
 
 int main(){
     // declarations
     map<string, tuple<int, string, string>> villagerData; // map of villager data storing friendship level, species, and catchphrase
-
-    /*
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
@@ -60,6 +60,8 @@ int main(){
             << get<1>(pair.second) << ", "
             << get<2>(pair.second) << endl;
     }
+
+    /*
 
     // access the map using iterators
     cout << "\nVillagers Data (iterators):" << endl;
@@ -103,9 +105,9 @@ int main(){
         int choice = main_menu();
 
         switch(choice){
-            case 1: cout << "You chose to increase friendship." << endl;
+            case 1: cout << "You chose to increase friendship." << endl; increase_friendship(villagerData);
                     break;
-            case 2: cout << "You chose to decrease friendship." << endl;
+            case 2: cout << "You chose to decrease friendship." << endl; decrease_friendship(villagerData);
                     break;
             case 3: cout << "You chose to search for Villager." << endl;
                     break;
@@ -121,7 +123,7 @@ int main(){
 // arguments: none.
 // returns: user choice from number input.
 int main_menu (){
-    cout << endl << "** Main Menu **" << endl;
+    cout << endl << "** Main Menu **" << endl; 
     cout << "1. Increase Friendship" << endl;
     cout << "2. Decrease Friendship" << endl;
     cout << "3. Search for Villager" << endl;
@@ -137,6 +139,7 @@ int main_menu (){
     return choice;
 }
 
+// display_villagers 
 void display_villagers(map<string, tuple<int, string, string>> villagerData){
     if (villagerData.empty()){
         cout << "There are no villagers.\n";
@@ -153,7 +156,7 @@ void display_villagers(map<string, tuple<int, string, string>> villagerData){
 
 // select_villager allows user to select a villager.
 // arguments: map of villager data
-
+// returns: user choice
 int select_villager(map<string, tuple<int, string, string>> villagerData){
     int choice;
     cout << "Select a villager:\n";
@@ -172,8 +175,20 @@ int select_villager(map<string, tuple<int, string, string>> villagerData){
 // returns: user choice.
 void increase_friendship(map<string, tuple<int, string, string>> villagerData){
     int choice;
-    cout << "Select a villager:\n";
-    // Display of villagers
+    cout << endl << "Select a villager to increase friendship by 1 (Enter an index number):\n";
+    display_villagers(villagerData);
+    cout << "Choice -> ";
+    cin >> choice;
+    while (choice < 1 || choice > villagerData.size()){
+        cout << "Invalid choice. Please enter the number of a villager from the display: ";
+        cin >> choice;
+    }
+}
+
+void decrease_friendship(map<string, tuple<int, string, string>> villagerData){
+    int choice;
+    cout << endl << "Select a villager to decrease friendship by 1 (Enter an index number):\n";
+    display_villagers(villagerData);
     cout << "Choice -> ";
     cin >> choice;
     while (choice < 1 || choice > villagerData.size()){
