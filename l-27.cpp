@@ -28,7 +28,7 @@ using namespace std;
 // 4. Exit
 
 // Function Prototype
-void menu ();
+int main_menu ();
 
 int main() {
     // declarations
@@ -89,22 +89,37 @@ int main() {
     villagerData.clear();
     cout << "Size after clear: " << villagerData.size() << endl << endl;
 
-    void menu();
+    while (true){
+        int choice = main_menu();
+
+        switch(choice){
+            case 1: cout << "You chose to increase friendship." << endl;
+                    break;
+            case 2: cout << "You chose to decrease friendship." << endl;
+                    break;
+            case 3: cout << "You chose to search for Villager." << endl;
+                    break;
+            case 4: cout << "You chose to exit, you have left the program. Goodbye!" << endl;
+                    return 0;
+        }
+    }
 
     return 0;
 }
 
-void menu (map<string, tuple<int, string, string>> Menu){
+int main_menu (){
+    cout << endl << "** Main Menu **" << endl;
+    cout << "1. Increase Friendship" << endl;
+    cout << "2. Decrease Friendship" << endl;
+    cout << "3. Search for Villager" << endl;
+    cout << "4. Exit" << endl;
+
     int choice;
-    while(true){
-        cout << "1. Increase Friendship";
-        cout << "2. Decrease Friendship";
-        cout << "3. Search for Villager";
-        cout << "4. Exit";
-        cout << "Enter choice -> ";
+    cout << "Enter choice -> ";
+    cin >> choice;
+    while (choice < 1 || choice > 4){
+        cout << "Invalid choice. Please enter 1, 2, 3, or 4: ";
         cin >> choice;
     }
-    if (choice = 1){
-        
-    }
+    return choice;
 }
