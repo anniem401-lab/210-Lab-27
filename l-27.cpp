@@ -149,7 +149,7 @@ void display_villagers(map<string, tuple<int, string, string>> villagerData){
     }
     int i = 1;
     for (auto pair : villagerData) {
-        cout << "[" << i++ << "] " <<  pair.first << ": "
+        cout << pair.first << ": "
             << get<0>(pair.second) << ", "
             << get<1>(pair.second) << ", "
             << get<2>(pair.second) << endl;
@@ -176,23 +176,17 @@ int select_villager(map<string, tuple<int, string, string>> villagerData){
 // arguments: map of villager data.
 // returns: nothing.
 void increase_friendship(map<string, tuple<int, string, string>> villagerData){
-    cout << endl << "Select a villager to increase friendship by 1 (Enter a ):\n";
-    display_villagers(villagerData);
-    cout << "Choice -> ";
-    getline(cin, searchkey);
-
     string searchKey;
+    cout << endl << "Select a villager to increase friendship by 1 (Enter a villager name):\n";
+    display_villagers(villagerData);
+    cout << "Choice -> "; getline(cin, searchKey);
+    cin.ignore();
+
     auto it = villagerData.find(searchKey);
     if (it != villagerData.end()) {  // the iterator points to beyond the end of the map
                                        // if searchKey is not found
         cout << "\nFound " << searchKey << " in villager data: " << endl;
-
-        for (auto data : villagerData) {
-        cout 
-            << get<0>(data.second) << ", "
-            << get<1>(data.second) << ", "
-            << get<2>(data.second) << endl;
-        }
+        cout << "Friendship Level: " << get<0>(it->second) << endl;
     } else
         cout << endl << searchKey << " not found." << endl;
 }
