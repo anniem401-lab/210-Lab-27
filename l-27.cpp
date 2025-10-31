@@ -8,14 +8,14 @@
 #include <iostream> // for std::cout, std::endl
 #include <map> // for std::map
 #include <vector> // for std::vector
+#include <string> // for string
+#include <tuple> // for std::tuple
 using namespace std;
 
 // Milestone 2:
 // Currently, the std::map in that code contains a key (here, a string representing the villager's name)
 // and a value (here, a string vector representing their three favorite colors).
-
 // Change the data we're storing to friendship level (0-10), the villager's species (string), and the villager's catchphrase (string).
-
 // Change the data structure held in the std::map's value from a vector to a std::tuple.
 
 // Convert the rest of the code to support the new std::tuple.
@@ -24,22 +24,23 @@ using namespace std;
 
 int main() {
     // declarations
-    map<string, vector<string>> villagerData; // map of villager data storing friendship level, species, and catchphrase
+    map<string, tuple<int, string, string>> villagerData; // map of villager data storing friendship level, species, and catchphrase
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
-    villagerData["Audie"] = {"5,", "Wolf,", "foxtrot"};
-    villagerData["Raymond"] = {"8,", "Cat,", "crisp"};
-    villagerData.insert({"Marshal", {"3,", "Squirrel,", "sulky"}});
+
+    // assigning values to tuple using make_tuple()
+    villagerData["Audie"] = make_tuple( 5, "Wolf,", "foxtrot");
+    villagerData["Raymond"] = make_tuple( 8, "Cat,", "crisp");
+    villagerData.insert({"Marshal", {3, "Squirrel,", "sulky"}});
 
     // access the map using a range-based for loop
     cout << endl << "Villager Data (range-based for loop):" << endl;
     cout << "-------------------------------------" << endl;
     for (auto pair : villagerData) {
-        cout << pair.first << ": ";
-        for (auto color : pair.second)
-            cout << color << " ";
-        cout << endl;
+        cout << pair.first << ": "
+            get<1>(pair.first) << ", " <<
+
     }
 
     // access the map using iterators
@@ -52,7 +53,7 @@ int main() {
             cout << color << " ";
         }
         cout << endl;
-    }
+    }//
 
     // delete an element
     villagerData.erase("Raymond");
