@@ -32,8 +32,9 @@ using namespace std;
 // villager data in this format (you can improve on the format if you wish).
 
 // Function Prototype
-int main_menu ();
-void display_villagers();
+int main_menu (); // Main menu function that loops in main.
+void display_villagers(); // Displays list of villagers.
+int select_villager(); // Allows user to select a villager.
 void increase_friendship();
 
 int main(){
@@ -136,6 +137,36 @@ int main_menu (){
     return choice;
 }
 
+void display_villagers(map<string, tuple<int, string, string>> villagerData){
+    if (villagerData.empty()){
+        cout << "There are no villagers.\n";
+        return;
+    }
+    int i = 1;
+    for (auto pair : villagerData) {
+        cout << "[" << i++ << "] " <<  pair.first << ": "
+            << get<0>(pair.second) << ", "
+            << get<1>(pair.second) << ", "
+            << get<2>(pair.second) << endl;
+    }
+}
+
+// select_villager allows user to select a villager.
+// arguments: map of villager data
+
+int select_villager(map<string, tuple<int, string, string>> villagerData){
+    int choice;
+    cout << "Select a villager:\n";
+    display_villagers(villagerData);
+    cout << "Choice -> ";
+    cin >> choice;
+    while (choice < 1 || choice > villagerData.size()){
+        cout << "Invalid choice. Please enter the number of a villager from the display: ";
+        cin >> choice;
+    }
+    return choice;
+}
+
 // increase_friendship allows the user to increase friendship by one point.
 // arguments: map of villager data
 // returns: user choice.
@@ -149,5 +180,4 @@ void increase_friendship(map<string, tuple<int, string, string>> villagerData){
         cout << "Invalid choice. Please enter the number of a villager from the display: ";
         cin >> choice;
     }
-
 }
