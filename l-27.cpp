@@ -36,7 +36,7 @@ int main_menu (); // Main menu function that loops in main.
 void display_villagers(); // Displays list of villagers.
 int select_villager(); // Allows user to select a villager.
 void increase_friendship(map<string, tuple<int, string, string>> villagerData); // Increases friendship by 1, Choice 1.
-void decrease_friendship(); // Decreases friendship by 1, Choice 2.
+void decrease_friendship(map<string, tuple<int, string, string>> villagerData); // Decreases friendship by 1, Choice 2.
 void search_villager(); // Searches for villager, Choice 3.
 
 int main(){
@@ -139,7 +139,9 @@ int main_menu (){
     return choice;
 }
 
-// display_villagers 
+// display_villagers displays a list of villagers.
+// arguments: map of villager data.
+// returns: nothing.
 void display_villagers(map<string, tuple<int, string, string>> villagerData){
     if (villagerData.empty()){
         cout << "There are no villagers.\n";
@@ -155,8 +157,8 @@ void display_villagers(map<string, tuple<int, string, string>> villagerData){
 }
 
 // select_villager allows user to select a villager.
-// arguments: map of villager data
-// returns: user choice
+// arguments: map of villager data.
+// returns: user int choice.
 int select_villager(map<string, tuple<int, string, string>> villagerData){
     int choice;
     cout << "Select a villager:\n";
@@ -170,21 +172,34 @@ int select_villager(map<string, tuple<int, string, string>> villagerData){
     return choice;
 }
 
-// increase_friendship allows the user to increase friendship by one point.
-// arguments: map of villager data
-// returns: user choice.
+// increase_friendship allows the user to increase friendship of a villager by one point.
+// arguments: map of villager data.
+// returns: nothing.
 void increase_friendship(map<string, tuple<int, string, string>> villagerData){
-    int choice;
-    cout << endl << "Select a villager to increase friendship by 1 (Enter an index number):\n";
+    cout << endl << "Select a villager to increase friendship by 1 (Enter a ):\n";
     display_villagers(villagerData);
     cout << "Choice -> ";
-    cin >> choice;
-    while (choice < 1 || choice > villagerData.size()){
-        cout << "Invalid choice. Please enter the number of a villager from the display: ";
-        cin >> choice;
-    }
+    getline(cin, searchkey);
+
+    string searchKey;
+    auto it = villagerData.find(searchKey);
+    if (it != villagerData.end()) {  // the iterator points to beyond the end of the map
+                                       // if searchKey is not found
+        cout << "\nFound " << searchKey << " in villager data: " << endl;
+
+        for (auto data : villagerData) {
+        cout 
+            << get<0>(data.second) << ", "
+            << get<1>(data.second) << ", "
+            << get<2>(data.second) << endl;
+        }
+    } else
+        cout << endl << searchKey << " not found." << endl;
 }
 
+// decrease_friendship allows the user to decrease friendship level of a villager by one point.
+// arguments: map of villager data.
+// returns: nothing.
 void decrease_friendship(map<string, tuple<int, string, string>> villagerData){
     int choice;
     cout << endl << "Select a villager to decrease friendship by 1 (Enter an index number):\n";
