@@ -64,6 +64,13 @@ int main() {
                                        // if searchKey is not found
         cout << "\nFound " << searchKey << "'s villager data: " << endl;
 
+        for (auto data : villagerData) {
+        cout 
+            << get<0>(data.second) << ", "
+            << get<1>(data.second) << ", "
+            << get<2>(data.second) << endl;
+    }
+
     } else
         cout << endl << searchKey << " not found." << endl;
 
