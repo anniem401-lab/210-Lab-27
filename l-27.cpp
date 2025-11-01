@@ -179,19 +179,23 @@ void increase_friendship(map<string, tuple<int, string, string>> &villagerData){
     string name;
     int friendshipLvl;
     cout << endl << "Select a villager to increase friendship by 1 (Enter a villager name):" << endl;
+    cout << "-------------------------------------" << endl;
     display_villagers(villagerData);
-    cout << "Name -> "; getline(cin, name);
-    cin.ignore();
+    cout << "Name -> ";
+    cin >> name;
+    cin.ignore(1000, 10);
 
     auto it = villagerData.find(name);
     if (it != villagerData.end()) {  // the iterator points to beyond the end of the map
                                        // if searchKey is not found
         friendshipLvl = get<0>(it->second);
+
         if (friendshipLvl < 10){
-        cout << "Friendship with " << name << " increased to" << friendshipLvl << "." << endl;
+            friendshipLvl++;
+            cout << "Friendship with " << name << " increased to " << friendshipLvl << "." << endl;
         }
         else{
-            cout << name << " is at max friendship(10).";
+            cout << name << " is already at max friendship (10).";
         }
     } else
         cout << endl << name << " not found." << endl;
@@ -201,13 +205,26 @@ void increase_friendship(map<string, tuple<int, string, string>> &villagerData){
 // arguments: map of villager data.
 // returns: nothing.
 void decrease_friendship(map<string, tuple<int, string, string>> villagerData){
-    int choice;
+    string name;
+    int friendshipLvl;
     cout << endl << "Select a villager to decrease friendship by 1 (Enter an index number):\n";
+    cout << "-------------------------------------" << endl;
     display_villagers(villagerData);
-    cout << "Choice -> ";
-    cin >> choice;
-    while (choice < 1 || choice > villagerData.size()){
-        cout << "Invalid choice. Please enter the number of a villager from the display: ";
-        cin >> choice;
-    }
+    cout << "Name -> ";
+    cin >> name;
+    cin.ignore(1000, 10);
+
+    auto it = villagerData.find(name);
+    if (it != villagerData.end()) {  // the iterator points to beyond the end of the map
+                                       // if searchKey is not found
+        friendshipLvl = get<0>(it->second);
+
+        if (friendshipLvl < 10){
+            friendshipLvl--;
+            cout << "Friendship with " << name << " decreased to " << friendshipLvl << "." << endl;
+        }
+        else{
+            cout << ""
+        }
+
 }
