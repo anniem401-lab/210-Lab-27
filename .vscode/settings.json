@@ -4,6 +4,7 @@
         "ostream": "cpp",
         "tuple": "cpp",
         "map": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "xtree": "cpp"
     }
 }

@@ -35,7 +35,7 @@ using namespace std;
 int main_menu (); // Main menu function that loops in main.
 void display_villagers(); // Displays list of villagers.
 int select_villager(); // Allows user to select a villager.
-void increase_friendship(map<string, tuple<int, string, string>> villagerData); // Increases friendship by 1, Choice 1.
+void increase_friendship(map<string, tuple<int, string, string>> &villagerData); // Increases friendship by 1, Choice 1.
 void decrease_friendship(map<string, tuple<int, string, string>> villagerData); // Decreases friendship by 1, Choice 2.
 void search_villager(); // Searches for villager, Choice 3.
 
@@ -175,20 +175,26 @@ int select_villager(map<string, tuple<int, string, string>> villagerData){
 // increase_friendship allows the user to increase friendship of a villager by one point.
 // arguments: map of villager data.
 // returns: nothing.
-void increase_friendship(map<string, tuple<int, string, string>> villagerData){
-    string searchKey;
-    cout << endl << "Select a villager to increase friendship by 1 (Enter a villager name):\n";
+void increase_friendship(map<string, tuple<int, string, string>> &villagerData){
+    string name;
+    int friendshipLvl;
+    cout << endl << "Select a villager to increase friendship by 1 (Enter a villager name):" << endl;
     display_villagers(villagerData);
-    cout << "Choice -> "; getline(cin, searchKey);
+    cout << "Name -> "; getline(cin, name);
     cin.ignore();
 
-    auto it = villagerData.find(searchKey);
+    auto it = villagerData.find(name);
     if (it != villagerData.end()) {  // the iterator points to beyond the end of the map
                                        // if searchKey is not found
-        cout << "\nFound " << searchKey << " in villager data: " << endl;
-        cout << "Friendship Level: " << get<0>(it->second) << endl;
+        friendshipLvl = get<0>(it->second);
+        if (friendshipLvl < 10){
+        cout << "Friendship with " << name << " increased to" << friendshipLvl << "." << endl;
+        }
+        else{
+            cout << name << " is at max friendship(10).";
+        }
     } else
-        cout << endl << searchKey << " not found." << endl;
+        cout << endl << name << " not found." << endl;
 }
 
 // decrease_friendship allows the user to decrease friendship level of a villager by one point.
