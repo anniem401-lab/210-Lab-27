@@ -1,10 +1,6 @@
 // COMSC-210 | Lab 27 | Annie Morales
 // IDE used: Visual Studio Code
 
-// Milestone 1: Done
-// Bring the demo code for std::map that's posted in module 27 
-// into a new Github repository project.
-
 #include <iostream> // for std::cout, std::endl
 #include <map> // for std::map
 #include <vector> // for std::vector
@@ -12,29 +8,11 @@
 #include <tuple> // for std::tuple
 using namespace std;
 
-// Milestone 2: Done
-// Currently, the std::map in that code contains a key (here, a string representing the villager's name)
-// and a value (here, a string vector representing their three favorite colors).
-// Change the data we're storing to friendship level (0-10), the villager's species (string), and the villager's catchphrase (string).
-// Change the data structure held in the std::map's value from a vector to a std::tuple.
-// Convert the rest of the code to support the new std::tuple.
-// Demo this code's success with short driver code.
-
-// Milestone 3: Done
-// Make a program menu-driven that will support this menu:
-// 1. Increase Friendship
-// 2. Decrease Friendship
-// 3. Search for Villager
-// 4. Exit
-// The increase/decrease friendship can just add a point each time, 
-// making sure that the level is never negative.
-// After each operation is complete, output the std::map's contents of 
-// villager data in this format (you can improve on the format if you wish).
-
 // Function Prototype
 int main_menu (); // Main menu function that loops in main.
 void display_villagers(map<string, tuple<int, string, string>> villagerData); // Displays list of villagers.
 int select_villager(); // Allows user to select a villager.
+void add_villager(); // Allows usesr to add a villager.
 void increase_friendship(map<string, tuple<int, string, string>> &villagerData); // Increases friendship by 1, Choice 1.
 void decrease_friendship(map<string, tuple<int, string, string>> &villagerData); // Decreases friendship by 1, Choice 2.
 void search_villager(map<string, tuple<int, string, string>> villagerData); // Searches for villager, Choice 3.
@@ -105,13 +83,15 @@ int main(){
         int choice = main_menu();
 
         switch(choice){
-            case 1: cout << "You chose to increase friendship." << endl; increase_friendship(villagerData);
+            case 1: cout << "You chose to add a villager." << endl; add_villager();
                     break;
-            case 2: cout << "You chose to decrease friendship." << endl; decrease_friendship(villagerData);
+            case 2: cout << "You chose to increase friendship." << endl; increase_friendship(villagerData);
                     break;
-            case 3: cout << "You chose to search for Villager." << endl; search_villager(villagerData);
+            case 3: cout << "You chose to decrease friendship." << endl; decrease_friendship(villagerData);
                     break;
-            case 4: cout << "You chose to exit, you have left the program. Goodbye!" << endl << endl;
+            case 4: cout << "You chose to search for Villager." << endl; search_villager(villagerData);
+                    break;
+            case 5: cout << "You chose to exit, you have left the program. Goodbye!" << endl << endl;
                     return 0;
         }
     }
@@ -170,6 +150,17 @@ int select_villager(map<string, tuple<int, string, string>> villagerData){
         cin >> choice;
     }
     return choice;
+}
+
+void add_villager(map<string, tuple<int, string, string>> villagerData){
+    string name, species, phrase;
+    int friendshipLvl;
+    cout << "Enter the information of the villager you want to add:" << endl;
+    cout << "Villager name: "; cin >> name;
+    cout << "Friendship level: "; cin >> friendshipLvl;
+    cout << "Species: "; cin >> species;
+    cout << "Catchphrase: "; cin >> phrase;
+    cout << name << "Has been added." << endl;
 }
 
 // increase_friendship allows the user to increase friendship of a villager by one point.
