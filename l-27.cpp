@@ -12,10 +12,11 @@ using namespace std;
 int main_menu (); // Main menu function that loops in main.
 void display_villagers(map<string, tuple<int, string, string>> villagerData); // Displays list of villagers.
 int select_villager(); // Allows user to select a villager.
-void add_villager(); // Allows usesr to add a villager.
-void increase_friendship(map<string, tuple<int, string, string>> &villagerData); // Increases friendship by 1, Choice 1.
-void decrease_friendship(map<string, tuple<int, string, string>> &villagerData); // Decreases friendship by 1, Choice 2.
-void search_villager(map<string, tuple<int, string, string>> villagerData); // Searches for villager, Choice 3.
+void add_villager(map<string, tuple<int, string, string>> &villagerData); // Allows usesr to add a villager. Choice 1.
+void delete_villager(map<string, tuple<int, string, string>> &villagerData); // Allws user to delete a villager. Choice 2.
+void increase_friendship(map<string, tuple<int, string, string>> &villagerData); // Increases friendship by 1, Choice 3.
+void decrease_friendship(map<string, tuple<int, string, string>> &villagerData); // Decreases friendship by 1, Choice 4.
+void search_villager(map<string, tuple<int, string, string>> villagerData); // Searches for villager, Choice 5.
 
 int main(){
     // declarations
@@ -83,15 +84,17 @@ int main(){
         int choice = main_menu();
 
         switch(choice){
-            case 1: cout << "You chose to add a villager." << endl; add_villager();
+            case 1: cout << "You chose to add a villager." << endl; add_villager(villagerData);
                     break;
-            case 2: cout << "You chose to increase friendship." << endl; increase_friendship(villagerData);
+            case 2: cout << "You chose to delete a villager." << endl; delete_villager(villagerData);
                     break;
-            case 3: cout << "You chose to decrease friendship." << endl; decrease_friendship(villagerData);
+            case 3: cout << "You chose to increase friendship." << endl; increase_friendship(villagerData);
                     break;
-            case 4: cout << "You chose to search for Villager." << endl; search_villager(villagerData);
+            case 4: cout << "You chose to decrease friendship." << endl; decrease_friendship(villagerData);
                     break;
-            case 5: cout << "You chose to exit, you have left the program. Goodbye!" << endl << endl;
+            case 5: cout << "You chose to search for Villager." << endl; search_villager(villagerData);
+                    break;
+            case 6: cout << "You chose to exit, you have left the program. Goodbye!" << endl << endl;
                     return 0;
         }
     }
@@ -103,17 +106,19 @@ int main(){
 // arguments: none.
 // returns: user choice from number input.
 int main_menu (){
-    cout << endl << "** Main Menu **" << endl; 
-    cout << "1. Increase Friendship" << endl;
-    cout << "2. Decrease Friendship" << endl;
-    cout << "3. Search for Villager" << endl;
-    cout << "4. Exit" << endl;
+    cout << endl << "** Main Menu **" << endl;
+    cout << "1. Add villager" << endl;
+    cout << "2. Delete villager" << endl; 
+    cout << "3. Increase Friendship" << endl;
+    cout << "4. Decrease Friendship" << endl;
+    cout << "5. Search for Villager" << endl;
+    cout << "6. Exit" << endl;
 
     int choice;
     cout << "Enter choice -> ";
     cin >> choice;
-    while (choice < 1 || choice > 4){
-        cout << "Invalid choice. Please enter 1, 2, 3, or 4: ";
+    while (choice < 1 || choice > 6){
+        cout << "Invalid choice. Please enter 1-5: ";
         cin >> choice;
     }
     return choice;
@@ -152,16 +157,30 @@ int select_villager(map<string, tuple<int, string, string>> villagerData){
     return choice;
 }
 
-void add_villager(map<string, tuple<int, string, string>> villagerData){
+// add_villager allows user to add a villager after filling out the info.
+// arguments: map of villager data.
+// returns: nothing.
+void add_villager(map<string, tuple<int, string, string>> &villagerData){
     string name, species, phrase;
     int friendshipLvl;
-    cout << "Enter the information of the villager you want to add:" << endl;
-    cout << "Villager name: "; cin >> name;
-    cout << "Friendship level: "; cin >> friendshipLvl;
-    cout << "Species: "; cin >> species;
-    cout << "Catchphrase: "; cin >> phrase;
-    cout << name << "Has been added." << endl;
+    cout << endl << "Enter the information of the villager you want to add:" << endl;
+    cout << "-------------------------------------" << endl;
+    cout << "Villager name: "; 
+    cin >> name;
+    cin.ignore(1000, 10);
+    cout << "Friendship level: "; 
+    cin >> friendshipLvl;
+    cin.ignore(1000, 10);
+    cout << "Species: "; 
+    cin >> species;
+    cin.ignore(1000, 10);
+    cout << "Catchphrase: "; 
+    getline(cin, phrase);
+    villagerData[name] = make_tuple(friendshipLvl, species, phrase);
+    cout << name << " has been added." << endl;
 }
+
+void delete_villager()
 
 // increase_friendship allows the user to increase friendship of a villager by one point.
 // arguments: map of villager data.
