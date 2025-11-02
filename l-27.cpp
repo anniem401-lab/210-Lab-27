@@ -36,8 +36,8 @@ int main_menu (); // Main menu function that loops in main.
 void display_villagers(); // Displays list of villagers.
 int select_villager(); // Allows user to select a villager.
 void increase_friendship(map<string, tuple<int, string, string>> &villagerData); // Increases friendship by 1, Choice 1.
-void decrease_friendship(map<string, tuple<int, string, string>> villagerData); // Decreases friendship by 1, Choice 2.
-void search_villager(); // Searches for villager, Choice 3.
+void decrease_friendship(map<string, tuple<int, string, string>> &villagerData); // Decreases friendship by 1, Choice 2.
+void search_villager(map<string, tuple<int, string, string>> villagerData); // Searches for villager, Choice 3.
 
 int main(){
     // declarations
@@ -204,10 +204,10 @@ void increase_friendship(map<string, tuple<int, string, string>> &villagerData){
 // decrease_friendship allows the user to decrease friendship level of a villager by one point.
 // arguments: map of villager data.
 // returns: nothing.
-void decrease_friendship(map<string, tuple<int, string, string>> villagerData){
+void decrease_friendship(map<string, tuple<int, string, string>> &villagerData){
     string name;
     int friendshipLvl;
-    cout << endl << "Select a villager to decrease friendship by 1 (Enter an index number):\n";
+    cout << endl << "Select a villager to decrease friendship by 1 (Enter a villager name):\n";
     cout << "-------------------------------------" << endl;
     display_villagers(villagerData);
     cout << "Name -> ";
@@ -224,7 +224,36 @@ void decrease_friendship(map<string, tuple<int, string, string>> villagerData){
             cout << "Friendship with " << name << " decreased to " << friendshipLvl << "." << endl;
         }
         else{
-            cout << ""
+            cout << name << " is already at minimum friendship (0)." << endl;
         }
+    } else{
+        cout << name << " not found." << endl;
+    }    
+}
 
+// search_villager allows the user to search for a villager.
+// argument: map of vilager data.
+// returns: nothing.
+void search_villager(map<string, tuple<int, string, string>> villagerData){
+    string name;
+    cout << endl << "Select a villager to search for (Enter a villager name):\n";
+    cout << "-------------------------------------" << endl;
+    display_villagers(villagerData);
+    cout << "Name -> ";
+    cin >> name;
+    cin.ignore(1000, 10);
+
+    auto it = villagerData.find(name);
+    if (it != villagerData.end()) {  // the iterator points to beyond the end of the map
+                                       // if searchKey is not found
+        cout << "\nFound " << name << " in villager data: " << endl;
+
+        for (auto data : villagerData) {
+        cout 
+            << get<0>(data.second) << ", "
+            << get<1>(data.second) << ", "
+            << get<2>(data.second) << endl;
+        }
+    } else
+        cout << endl << name << " not found." << endl;
 }
