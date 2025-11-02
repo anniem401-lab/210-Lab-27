@@ -11,9 +11,9 @@ using namespace std;
 // Function Prototype
 int main_menu (); // Main menu function that loops in main.
 void display_villagers(map<string, tuple<int, string, string>> villagerData); // Displays list of villagers.
-int select_villager(); // Allows user to select a villager.
+string select_villager(map<string, tuple<int, string, string>> villagerData); // Allows user to select a villager.
 void add_villager(map<string, tuple<int, string, string>> &villagerData); // Allows usesr to add a villager. Choice 1.
-void delete_villager(map<string, tuple<int, string, string>> &villagerData); // Allws user to delete a villager. Choice 2.
+void delete_villager(map<string, tuple<int, string, string>> &villagerData); // Allows user to delete a villager. Choice 2.
 void increase_friendship(map<string, tuple<int, string, string>> &villagerData); // Increases friendship by 1, Choice 3.
 void decrease_friendship(map<string, tuple<int, string, string>> &villagerData); // Decreases friendship by 1, Choice 4.
 void search_villager(map<string, tuple<int, string, string>> villagerData); // Searches for villager, Choice 5.
@@ -143,18 +143,19 @@ void display_villagers(map<string, tuple<int, string, string>> villagerData){
 
 // select_villager allows user to select a villager.
 // arguments: map of villager data.
-// returns: user int choice.
-int select_villager(map<string, tuple<int, string, string>> villagerData){
-    int choice;
+// returns: user choice.
+string select_villager(map<string, tuple<int, string, string>> villagerData){
+    string name;
     cout << "Select a villager:\n";
     display_villagers(villagerData);
-    cout << "Choice -> ";
-    cin >> choice;
+    cout << "Name -> ";
+    cin >> name;
+    /*
     while (choice < 1 || choice > villagerData.size()){
         cout << "Invalid choice. Please enter the number of a villager from the display: ";
         cin >> choice;
     }
-    return choice;
+    */
 }
 
 // add_villager allows user to add a villager after filling out the info.
@@ -180,7 +181,18 @@ void add_villager(map<string, tuple<int, string, string>> &villagerData){
     cout << name << " has been added." << endl;
 }
 
-void delete_villager()
+// delete_villager deletes a villager.
+// arguments: map of villager data.
+// returns: nothing.
+void delete_villager(map<string, tuple<int, string, string>> &villagerData){
+    if (villagerData.empty()){
+        cout << "There are no villagers to delete.\n";
+        return;
+    }
+    string name = select_villager(villagerData);
+    auto it = villagerData.begin();
+    
+}
 
 // increase_friendship allows the user to increase friendship of a villager by one point.
 // arguments: map of villager data.
